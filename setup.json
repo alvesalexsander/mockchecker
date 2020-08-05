@@ -1,0 +1,16 @@
+{
+    "mocks": {
+        "exampleMock": "./dist/resources/exampleMock.js"
+    },
+    "services": {
+        "exampleService": "./dist/services/ExampleService.js"
+    },
+    "dictionary": {
+        "exampleSynonym": "exampleMeaning"
+    },
+    "extraModules": { },
+    "extras": {
+        "noWarnings": false
+    }
+
+}
