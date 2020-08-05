@@ -2,6 +2,7 @@
     "compileOnSave": true,
     "compilerOptions": {
         "allowJs": true,
+        "resolveJsonModule": true,
         "module": "commonjs",
         "declaration": true,
         "esModuleInterop": true,
@@ -20,7 +21,8 @@
         }
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "src/**/*.json"
     ],
     "exclude": ["node_modules", "**/__tests__/*"]
 }
