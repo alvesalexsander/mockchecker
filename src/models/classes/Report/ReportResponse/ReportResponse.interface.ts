@@ -1,4 +1,9 @@
-import IResponseTemplate from '../ResponseTemplate/ResponseTemplate.interface';
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
 
 export default interface IReportResponse {
     type: string;

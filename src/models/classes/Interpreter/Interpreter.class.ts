@@ -1,3 +1,9 @@
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
 import IInterpreter from './Interpreter.interface';
 import Synonym from './Synonym/Synonym.class';
 import MeaningDomain from './MeaningDomain/MeaningDomain.class';

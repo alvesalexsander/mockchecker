@@ -1,3 +1,9 @@
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
 import { BaseService } from '../models/classes/index';
 import IRequest from '../models/classes/Request/Request.interface';
 
@@ -22,12 +28,14 @@ export default class ExampleService extends BaseService {
         const result: any = {};
         for (const customer in customers) {
             if (
-                customers[customer].firstName === req.query.byMatchingAny.firstName &&
+                customers[customer].firstName === req.query.byMatchingEvery.firstName &&
                 customers[customer].age < req.query.ageLimit
             ) {
                 result[customer] = {
                     firstName: customers[customer].firstName,
+                    lastName: customers[customer].lastName,
                     address: customers[customer].address,
+                    age: customers[customer].age,
                 };
             }
         }

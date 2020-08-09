@@ -1,11 +1,17 @@
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
+
+import path from 'path';
+
 import IServiceRepository from './ServiceRepository.interface';
 import IBaseService from '../BaseService/BaseService.interface';
 import IRequest from '../Request/Request.interface';
-import { getServices } from '../../../services';
 import SETTINGS from '../../../settings';
 
-import fs from 'fs';
-import path from 'path';
 import Injectable from '../Injetable/Injectable.class';
 export default class ServiceRepository extends Injectable implements IServiceRepository {
     availableServices: { [key: string]: IBaseService } = {};

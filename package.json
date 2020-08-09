@@ -1,7 +1,7 @@
 {
   "name": "mockchecker",
   "version": "1.0.0",
-  "description": "Toolkit to develop your own mock verifier application.",
+  "description": "Toolkit to help you develop your own mock verifier application as you need.",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

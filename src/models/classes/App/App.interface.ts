@@ -1,5 +1,10 @@
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
 import { Builder } from '../index';
-import { Interpreter, MockExplorer, ServiceRepository } from '..';
 import IRequest from '../Request/Request.interface';
 import IInterpreter from '../Interpreter/Interpreter.interface';
 import IMockExplorer from '../MockExplorer/MockExplorer.interface';

@@ -1,4 +1,10 @@
-// import Inspector from './Inspector/Inspector.class';
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
+
 import Interpreter from './Interpreter/Interpreter.class';
 import MeaningDomain from './Interpreter/MeaningDomain/MeaningDomain.class';
 import Synonym from './Interpreter/Synonym/Synonym.class';

@@ -1,3 +1,9 @@
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
 import fs from 'fs';
 import path from 'path';
 

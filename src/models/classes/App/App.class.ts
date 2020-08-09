@@ -1,11 +1,18 @@
+/*
+    Created by Alexsander Alves.
+    Distributed under GLP 3.0 license.
+
+    Contact: alvesalexsander@live.com
+*/
+
+const fs = require('fs');
+const path = require('path');
+
 import IApp from './App.interface';
 import SETTINGS from '../../../settings';
 import Builder from '../Builder/Builder.class';
 import { Interpreter, MockExplorer, ServiceRepository } from '..';
 import IRequest from '../Request/Request.interface';
-
-const fs = require('fs');
-const path = require('path');
 
 export default class Mockchecker implements IApp {
     [key: string]: any;
@@ -15,7 +22,6 @@ export default class Mockchecker implements IApp {
 
     constructor(
         public create: typeof Builder = Builder,
-        // public serviceRepository: ServiceRepository = Builder.ServiceRepository({ settings: SETTINGS.SERVICES }),
         public interpreter: Interpreter = Builder.Interpreter({ settings: SETTINGS.INTERPRETER }),
         public mockExplorer: MockExplorer = Builder.MockExplorer({ settings: SETTINGS.MOCKS }),
     ) {
