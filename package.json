@@ -1,6 +1,6 @@
 {
   "name": "mockchecker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Toolkit to help you develop your own mock verifier application as you need.",
   "main": "dist/index.js",
   "scripts": {
