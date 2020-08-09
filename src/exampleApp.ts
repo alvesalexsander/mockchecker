@@ -3,12 +3,20 @@ import { mockchecker } from './index';
 const req = mockchecker.create.Request({
     requiredServices: ['exampleService'],
     method: 'searchWithAgeLimit',
-    params: {
-        dataIdentifier: {
+    query: {
+        byMatchingAny: {
             firstName: 'Edmundo',
-            ageLimit: 30,
         },
+        ageLimit: 30,
     },
 });
 
-console.log(mockchecker.serviceRepository.query(req));
+const data = mockchecker.serviceRepository.query(req);
+console.log(data);
+
+const resp = mockchecker.create.ReportResponse({
+    type: 'example',
+});
+resp.setData(data).generateResponse();
+
+console.log(resp.getResponse());

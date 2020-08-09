@@ -1,18 +1,28 @@
 export default interface IRequest {
     method: string;
-    params: {
+    query: {
         [key: string]: any;
-        dataIdentifier: any;
+        byKey?: string;
+        byMatchingAny?: {
+            [key: string]: any;
+        };
+        byMatchingEvery?: {
+            [key: string]: any;
+        };
     };
     requiredServices: string[] | string;
-    result: {
-        [key: string]: any;
-    };
 
     /**
-     * Seta um novo parametro em params.
-     * @param paramName String que represetará a nova key em params
-     * @param paramValue Value de params[paramName]
+     * Set a new condition to the list of conditions data must to attend.
+     * @param key Condition key - string.
+     * @param value Condition value - any type.
      */
-    param(paramName: string, paramValue: any): this;
+    and(key: string, value: any): this;
+
+    /**
+     * Set a new condition to the list of conditions data may attend at least one.
+     * @param key Condition key - string.
+     * @param value Condition value - any type.
+     */
+    or(key: string, value: any): this;
 }

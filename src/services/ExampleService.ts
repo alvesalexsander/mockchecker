@@ -22,8 +22,8 @@ export default class ExampleService extends BaseService {
         const result: any = {};
         for (const customer in customers) {
             if (
-                customers[customer].firstName === req.params.dataIdentifier.firstName &&
-                customers[customer].age < req.params.dataIdentifier.ageLimit
+                customers[customer].firstName === req.query.byMatchingAny.firstName &&
+                customers[customer].age < req.query.ageLimit
             ) {
                 result[customer] = {
                     firstName: customers[customer].firstName,

@@ -2,42 +2,46 @@ import IRequest from './Request.interface';
 
 export default class Request implements IRequest {
     method: string = '';
-    params: {
+    query: {
         [key: string]: any;
-        dataIdentifier: any;
+        byKey?: string;
+        byMatchingAny?: {
+            [key: string]: any;
+        };
+        byMatchingEvery?: {
+            [key: string]: any;
+        };
     };
     requiredServices: string[] | string;
-    result: {
-        [key: string]: any;
-    };
 
     [key: string]: any;
 
     constructor({
         method = '',
-        params = {} as {
-            dataIdentifier: string;
+        query = {} as {
             [key: string]: any;
+            byKey: string;
+            byMatching: any;
         },
         requiredServices = '',
     }) {
-        if (!params || !requiredServices) {
+        if (!query || !requiredServices) {
             throw new Error(
-                "Request @ <object instantiation> :: ERROR :: Please, inform a 'requiredServices'(Array<string>) and 'params' object with properties which your services may use.",
+                "Request @ <object instantiation> :: ERROR :: Please, inform a 'requiredServices'(Array<string>) and 'query' object with properties which your services may use.",
             );
         }
         this.method = method || this.method;
-        this.params = params;
+        this.query = query;
         this.requiredServices = requiredServices;
     }
 
-    param(paramName: string, paramValue: any): this {
-        if (paramName !== 'requiredServices' && paramName !== 'dataIdentifier') {
-            this.params[paramName] = paramValue;
-            return this;
-        }
-        throw new Error(
-            `Request @ <param method> :: ERROR :: Not possible to redefine 'dataIndentifier' or 'requiredServices' after object instantiation.`,
-        );
+    and(key: string, value: any): this {
+        this.query.byMatchingEvery[key] = value;
+        return this;
+    }
+
+    or(key: string, value: any): this {
+        this.query.byMatchingAny[key] = value;
+        return this;
     }
 }

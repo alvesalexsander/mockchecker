@@ -1,4 +1,7 @@
+const filter = require('lodash.filter');
+
 import IMockExplorer from './MockExplorer.interface';
+import IRequest from '../Request/Request.interface';
 
 export default class MockExplorer implements IMockExplorer {
     mockList: any = {};
@@ -51,8 +54,89 @@ export default class MockExplorer implements IMockExplorer {
         return false;
     }
 
-    find<T>(dataIdentifier: string, mockIdentifier: string): T {
-        return this.mockList[mockIdentifier]?.[dataIdentifier] || {};
+    find<T>(req: IRequest, mockIdentifier: string): any {
+        let dataToReturn: any = [];
+
+        if (this.hasMock(mockIdentifier)) {
+            const mockData = this.mockList[mockIdentifier];
+            if (req?.query?.byKey && req?.query?.byMatchingAny && req?.query?.byMatchingEvery) {
+                dataToReturn = this.findWithKey(req.query.byKey, mockData);
+                dataToReturn = this.findWithEveryMatches(req.query.byMatchingEvery, dataToReturn);
+                dataToReturn = this.findWithAnyMatches(req.query.byMatchingAny, dataToReturn);
+            } else if (req?.query?.byKey && req?.query?.byMatchingAny && !req?.query?.byMatchingEvery) {
+                dataToReturn = this.findWithKey(req.query.byKey, mockData);
+                dataToReturn = this.findWithAnyMatches(req.query.byMatchingAny, dataToReturn);
+            } else if (req?.query?.byKey && !req?.query?.byMatchingAny && req?.query?.byMatchingEvery) {
+                dataToReturn = this.findWithKey(req.query.byKey, mockData);
+                dataToReturn = this.findWithEveryMatches(req.query.byMatchingEvery, dataToReturn);
+            } else if (!req?.query?.byKey && req?.query?.byMatchingAny && req?.query?.byMatchingEvery) {
+                dataToReturn = this.findWithEveryMatches(req.query.byMatchingEvery, mockData);
+                dataToReturn = this.findWithAnyMatches(req.query.byMatchingAny, dataToReturn);
+            } else if (req?.query?.byKey && !req?.query?.byMatchingAny && !req?.query?.byMatchingEvery) {
+                dataToReturn = this.findWithKey(req.query.byKey, mockData);
+            } else if (!req?.query?.byKey && req?.query?.byMatchingAny && !req?.query?.byMatchingEvery) {
+                dataToReturn = this.findWithAnyMatches(req.query.byMatchingAny, mockData);
+            } else if (!req?.query?.byKey && !req?.query?.byMatchingAny && req?.query?.byMatchingEvery) {
+                dataToReturn = this.findWithEveryMatches(req.query.byMatchingEvery, mockData);
+            }
+        }
+
+        for (const item in dataToReturn) {
+            if (dataToReturn[item] === undefined) {
+                delete dataToReturn[item];
+            }
+        }
+        return dataToReturn;
+    }
+
+    findWithKey(key: string, mockData: any): any {
+        const dataToReturn: any = {};
+        if (typeof key === 'string') {
+            if (Array.isArray(mockData) && mockData.length) {
+                if (mockData.indexOf(key) >= 0) {
+                    dataToReturn[key] = mockData.indexOf(key);
+                }
+                return dataToReturn;
+            } else if (mockData?.[key]) {
+                dataToReturn[key] = mockData[key];
+                return dataToReturn;
+            } else {
+                return dataToReturn;
+            }
+        }
+        return dataToReturn;
+    }
+
+    findWithAnyMatches(matches: any, mockData: any): any {
+        const dataToReturn: any = {};
+        const conditionsToMatch = Object.keys(matches).length;
+
+        if (conditionsToMatch && Object.keys(mockData).length) {
+            for (const condition in matches) {
+                for (const item in mockData) {
+                    dataToReturn[item] = filter({ item: mockData[item] }, { [condition]: matches[condition] })[0];
+                }
+                if (dataToReturn.length > 0) {
+                    return dataToReturn;
+                }
+            }
+        }
+        return dataToReturn;
+    }
+
+    findWithEveryMatches(matches: any, mockData: any): any {
+        const dataToReturn: any = {};
+
+        const conditionsToMatch = Object.keys(matches).length;
+
+        if (conditionsToMatch && Object.keys(mockData).length) {
+            for (const condition in matches) {
+                for (const item in mockData) {
+                    dataToReturn[item] = filter({ item: mockData[item] }, { [condition]: matches[condition] })[0];
+                }
+            }
+        }
+        return dataToReturn;
     }
 
     getMock<T>(mockIdentifier: string): T {

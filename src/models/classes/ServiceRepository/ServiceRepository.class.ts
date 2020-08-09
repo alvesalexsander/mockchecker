@@ -20,11 +20,15 @@ export default class ServiceRepository extends Injectable implements IServiceRep
     }
 
     query(req: IRequest): any {
-        const response: { [key: string]: any } = {};
+        let response: { [key: string]: any } = {};
         if (Object.keys(this.availableServices).length > 0) {
             const relatedServices = Object.keys(this.availableServices).filter((service) =>
                 req.requiredServices.includes(service),
             );
+            if (relatedServices.length === 1) {
+                response = this.availableServices[relatedServices[0]].execute(req);
+                return response;
+            }
             for (const service of relatedServices) {
                 response[service] = this.availableServices[service].execute(req);
             }

@@ -54,8 +54,8 @@ export default abstract class BaseService implements IBaseService {
     requestData(req: Request): any {
         if (this.dataSource) {
             if (this.mockExplorer.hasMock(this.dataSource)) {
-                // return this.mockExplorer.find(req.params.dataIdentifier, this.dataSource);
-                return this.mockExplorer.getMock(this.dataSource);
+                return this.mockExplorer.find(req, this.dataSource);
+                // return this.mockExplorer.getMock(this.dataSource);
             } else {
                 throw new Error(`BaseService :: ERROR :: ${this.dataSource} is not a valid mockName at MockExplorer.`);
             }

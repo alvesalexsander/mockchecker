@@ -1,3 +1,5 @@
+import IRequest from '../Request/Request.interface';
+
 export default interface IMockExplorer {
     mockList: {
         [key: string]: never;
@@ -39,10 +41,31 @@ export default interface IMockExplorer {
     /**
      * Recebe um dataIdentifier<string> e um mockIdentifier<string> e retorna os dados relacionados ao dataIdentifier
      * no mock de chave referente ao mockIdentifier
-     * @param dataIdentifier String que identifica a chave que vai ter o valor retornado
-     * @param mockIdentifier String que identifica a chave que vai ter o valor retornado
+     * @param req Objeto Request.
+     * @param mockIdentifier String que identifica a mock a ser pesquisado.
      */
-    find<T>(dataIdentifier: string, mockIdentifier: string): T;
+    find<T>(req: IRequest, mockIdentifier: string): T;
+
+    /**
+     * Search in the provided mockData for a specific key
+     * @param key Key to search in mock
+     * @param mockData Mock object to be searched
+     */
+    findWithKey(key: string, mockData: any): any;
+
+    /**
+     *  Search in the provided mockData for a key that matches any of the provided conditions
+     * @param matches Matches to search in mock
+     * @param mockData Mock object to be searched
+     */
+    findWithAnyMatches(matches: any, mockData: any): any;
+
+    /**
+     *  Search in the provided mockData for a key that matches every of the provided conditions
+     * @param matches
+     * @param mockData
+     */
+    findWithEveryMatches(matches: any, mockData: any): any;
 
     getMock<T>(mockIdentifier: string): T;
 }

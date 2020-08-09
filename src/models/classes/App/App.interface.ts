@@ -14,7 +14,7 @@ export default interface IApp {
     serviceRepository: IServiceRepository;
 
     /**
-     * Busca nos Services em availableServices pela informação correspondente ao req.params.dataIdentifier
+     * Busca nos Services em availableServices pela informação correspondente ao req.query.dataIdentifier
      * @param req  Requisição IRequest
      */
     query(req: IRequest): any;

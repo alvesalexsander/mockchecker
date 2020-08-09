@@ -4,6 +4,7 @@ import path from 'path';
 import IInjectable from './Injectable.interface';
 
 export default abstract class Injectable implements IInjectable {
+    appName: string = 'mockchecker';
     [key: string]: any;
 
     injectNewProp(item: any, newPropertyName: string): boolean {
@@ -80,7 +81,7 @@ export default abstract class Injectable implements IInjectable {
     }
 
     getBaseFolderPath(): string {
-        return __dirname.slice(0, __dirname.indexOf('mockchecker\\') + 'mockchecker\\'.length);
+        return __dirname.slice(0, __dirname.indexOf(this.appName) + this.appName.length);
     }
 
     isFileJS(filePath: string): boolean {
